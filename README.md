@@ -1,3 +1,41 @@
+About
+-----
+
+This a fork of https://github.com/lwfinger/rtl8723bs_bt targeted
+towards RK3288 Tinkerboard users.  
+There are a few additonal scripts that enable the right GPIO and reset
+the Bluetooth chip to make `rtk_hciattach` work correctly on these
+specific boards.
+
+[If you don't have a RK3288 board or Tinkerboard systems, do not use
+this fork. Use the official one.](https://github.com/lwfinger/rtl8723bs_bt)
+
+This is currently tested with my [patched 4.17-rcX kernel](https://github.com/Miouyouyou/RockMyy).
+
+Usage
+-----
+
+Run `./start_bt.sh`. It will run `make` automatically for you.
+
+You should see something like this on the first run :
+
+```
+root@tinkerboard:/path/to/rtl8723bs_bt# ./start_bt.sh 
+cc -c hciattach_rtk.c
+cc -o rtk_hciattach hciattach.c hciattach_rtk.o  
+Using device /dev/ttyS0 for Bluetooth
+```
+
+On the second run, you'll see :
+```
+root@tinkerboard:/path/to/rtl8723bs_bt# ./start_bt.sh 
+Using device /dev/ttyS0 for Bluetooth
+```
+
+The original readme.txt
+-----------------------
+
+```
 This directory contains the programs and firmware to operate the Bluetooth
 section of the RTL8723BS hardware used on a number of tablets.
 
@@ -33,4 +71,5 @@ WARNING: This driver needs the H5 protocol, which is built into kernels 3.12
 and later. If you need to use an earlier kernel, raise an issue on this repo.
 
 Larry Finger
+```
 
