@@ -15,7 +15,7 @@ This is currently tested with my [patched 4.17-rcX kernel](https://github.com/Mi
 Usage
 -----
 
-Run `./start_bt.sh`. It will run `make` automatically for you.
+Run `sudo ./start_bt.sh`. It will run `make` automatically for you.
 
 You should see something like this on the first run :
 
