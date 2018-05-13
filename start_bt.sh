@@ -1,4 +1,8 @@
 #!/bin/bash
+
+GPIO_CONFIGURED_CHECK_DIRECTORY="/var/run/rtk_bt"
+GPIO_CONFIGURED_CHECK_FILE="/var/run/rtk_bt/gpio_configured"
+
 function die_on_error {
 	if [ ! $? = 0 ]; then
 		echo $1
@@ -24,14 +28,14 @@ fi
 killall -q -SIGTERM rtk_hciattach
 
 # If the GPIO are not yet configured
-if [ ! -f "/var/run/rtk_bt/gpio_configured" ];
+if [ ! -f "$GPIO_CONFIGURED_CHECK_FILE" ];
 then
 	# We'll create the directory first
 	# So that, if the user is not root
 	# he'll get a user permission error
-	mkdir -p "/var/run/rtk_bt" || die_on_error "Could not create /var/run/rtk_bt"
+	mkdir -p "$GPIO_CONFIGURED_CHECK_DIRECTORY" || die_on_error "Could not create $GPIO_CONFIGURED_CHECK_DIRECTORY"
 	./configure_bt_gpio.sh || die_on_error "Could not configure the Bluetooth GPIO"
-	echo 1 > /var/run/rtk_bt/gpio_configured || die_on_error "Could not write to /var/run/rtk_bt/configured !"
+	echo 1 > $GPIO_CONFIGURED_CHECK_FILE || die_on_error "Could not write to $GPIO_CONFIGURED_CHECK_FILE !"
 else
 	# If you run the rtk_hciattach once
 	# you cannot run it again before
